@@ -1,6 +1,6 @@
 module Homework1
        ( toDigits
---       , toDigitsRev
+       , toDigitsRev
        ) where
 
 import Data.Char
@@ -8,4 +8,5 @@ import Data.Char
 toDigits :: Int -> [Int]
 toDigits x = map digitToInt (show x) 
 
---toDigitsRev :: Integer -> [Integer]
+toDigitsRev :: Int -> [Int]
+toDigitsRev = reverse . toDigits
