@@ -6,7 +6,7 @@ module Homework1
 import Data.Char
 
 toDigits :: Int -> [Int]
-toDigits x = map digitToInt (show x) 
+toDigits = map digitToInt . show
 
 toDigitsRev :: Int -> [Int]
 toDigitsRev = reverse . toDigits
