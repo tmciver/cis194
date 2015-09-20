@@ -2,6 +2,7 @@ module Homework1
        ( toDigits
        , toDigitsRev
        , doubleEveryOther
+       , sumDigits
        ) where
 
 import Data.Char
@@ -22,3 +23,6 @@ doubleEveryOther xs = if odd (length xs) then
      (y:ys) -> let h = if p then 2*y else y in
        h:doubleHelper (not p) ys
      [] -> []
+
+sumDigits :: [Int] -> Int
+sumDigits xs = foldl (+) 0 xs
