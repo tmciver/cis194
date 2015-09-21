@@ -3,17 +3,17 @@ module Homework1
        , toDigitsRev
        , doubleEveryOther
        , sumDigits
+       , validate
        ) where
 
-import Data.Char
+toDigits :: Integer -> [Integer]
+toDigits 0 = []
+toDigits x = toDigits (div x 10) ++ [mod x 10]
 
-toDigits :: Int -> [Int]
-toDigits = map digitToInt . show
-
-toDigitsRev :: Int -> [Int]
+toDigitsRev :: Integer -> [Integer]
 toDigitsRev = reverse . toDigits
 
-doubleEveryOther :: [Int] -> [Int]
+doubleEveryOther :: [Integer] -> [Integer]
 doubleEveryOther xs = if odd (length xs) then
                         doubleHelper False xs
                       else
@@ -24,5 +24,13 @@ doubleEveryOther xs = if odd (length xs) then
        h:doubleHelper (not p) ys
      [] -> []
 
-sumDigits :: [Int] -> Int
-sumDigits xs = foldl (+) 0 xs
+sumDigits :: [Integer] -> Integer
+sumDigits xs = foldl (\z n -> z + foldl (+) 0 (toDigits n))
+               0
+               xs
+
+validate :: Integer -> Bool
+validate x = mod y 10 == 0
+  where
+    y = let f = sumDigits . doubleEveryOther . toDigits in
+      f x
