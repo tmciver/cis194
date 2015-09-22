@@ -38,3 +38,8 @@ main = hspec $ do
       describe "Check that validate returns True for 4012888888881881" $ do
         it "validate returns True for Ints that are evenly divisible by 10, False otherwise." $ do
           validate 4012888888881881 `shouldBe` True
+
+    describe "Exercise 5" $ do
+      describe "Towers of Hanoi" $ do
+        it "2 discs has solution  [(\"a\",\"c\"), (\"a\",\"b\"), (\"c\",\"b\")]" $ do
+          hanoi 2 "a" "b" "c" `shouldBe` [("a","c"), ("a","b"), ("c","b")]

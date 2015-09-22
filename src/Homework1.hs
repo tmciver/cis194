@@ -4,6 +4,7 @@ module Homework1
        , doubleEveryOther
        , sumDigits
        , validate
+       , hanoi
        ) where
 
 toDigits :: Integer -> [Integer]
@@ -34,3 +35,13 @@ validate x = mod y 10 == 0
   where
     y = let f = sumDigits . doubleEveryOther . toDigits in
       f x
+
+type Peg = String
+type Move = (Peg, Peg)
+hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+hanoi numDiscs p1 p2 p3 = if numDiscs == 1 then
+                            [(p1, p2)]
+                          else
+                            hanoi (numDiscs-1) p1 p3 p2 ++
+                            hanoi 1 p1 p2 p3 ++
+                            hanoi (numDiscs-1) p3 p2 p1
