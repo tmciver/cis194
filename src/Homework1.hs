@@ -39,9 +39,7 @@ validate x = mod y 10 == 0
 type Peg = String
 type Move = (Peg, Peg)
 hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
-hanoi numDiscs p1 p2 p3 = if numDiscs == 1 then
-                            [(p1, p2)]
-                          else
-                            hanoi (numDiscs-1) p1 p3 p2 ++
-                            hanoi 1 p1 p2 p3 ++
-                            hanoi (numDiscs-1) p3 p2 p1
+hanoi 1 p1 p2 _ = [(p1, p2)]
+hanoi numDiscs p1 p2 p3 = hanoi (numDiscs-1) p1 p3 p2 ++
+                          hanoi 1 p1 p2 p3 ++
+                          hanoi (numDiscs-1) p3 p2 p1
