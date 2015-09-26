@@ -2,6 +2,8 @@ module Main where
  
 import Test.Hspec
 import Homework1
+import Homework2.Log
+import Homework2.LogAnalysis
  
 main :: IO ()
 main = hspec $ do
@@ -43,3 +45,15 @@ main = hspec $ do
       describe "Towers of Hanoi" $ do
         it "2 discs has solution  [(\"a\",\"c\"), (\"a\",\"b\"), (\"c\",\"b\")]" $ do
           hanoi 2 "a" "b" "c" `shouldBe` [("a","c"), ("a","b"), ("c","b")]
+
+-- Homework 2
+
+  describe "Homework 2 tests" $ do
+    describe "Exercise 1" $ do
+      describe "Test `parseMessage`" $ do
+        it "Should parse an error log message" $ do
+          parseMessage "E 2 562 help help" `shouldBe` LogMessage (Error 2) 562 "help help"
+        it "Should parse an informational log message" $ do
+          parseMessage "I 29 la la la" `shouldBe` LogMessage Info 29 "la la la"
+        it "Should parse an unknown log message" $ do
+          parseMessage "This is not in the right format" `shouldBe` Unknown "This is not in the right format"
