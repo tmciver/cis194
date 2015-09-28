@@ -57,3 +57,21 @@ main = hspec $ do
           parseMessage "I 29 la la la" `shouldBe` LogMessage Info 29 "la la la"
         it "Should parse an unknown log message" $ do
           parseMessage "This is not in the right format" `shouldBe` Unknown "This is not in the right format"
+      describe "Test `insert`" $ do
+        it "Should return a single Node when inserting into an empty tree (Leaf)" $ do
+          let logMessage = LogMessage Info 123 "Test Message"
+          insert logMessage Leaf `shouldBe` Node Leaf logMessage Leaf
+        it "Should not insert an Unknown LogMessage" $ do
+          insert (Unknown "Bad message") Leaf `shouldBe` Leaf
+        it "Should insert a LogMessage into the proper place in the given tree" $ do
+          let lm = LogMessage Warning 4 "Test"
+              t = Node (Node Leaf (LogMessage Info 3 "Test") Leaf)
+                  (LogMessage Warning 5 "Test")
+                  Leaf
+              newTree = Node (Node
+                              Leaf
+                              (LogMessage Info 3 "Test")
+                              (Node Leaf lm Leaf))
+                        (LogMessage Warning 5 "Test")
+                        Leaf
+            in insert lm t `shouldBe` newTree
