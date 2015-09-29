@@ -2,6 +2,7 @@
 module Homework2.LogAnalysis
        ( parseMessage
        , insert
+       , build
        ) where
 
 import Homework2.Log
@@ -23,3 +24,6 @@ insert lm@(LogMessage _ ts _) t = case t of
                                                              Node leftTree alm (insert lm rightTree)
                                                            else
                                                              t
+
+build :: [LogMessage] -> MessageTree
+build = foldl (\t m -> insert m t) Leaf
