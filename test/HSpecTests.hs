@@ -98,4 +98,24 @@ main = hspec $ do
                       Leaf)
               expectedList = [lm3, lm1, lm4, lm2]
             in inOrder tree `shouldBe` expectedList
-              
+    describe "Exercise 5" $ do
+      describe "Test 'whatWentWrong'" $ do
+        it "Should convert a list of LogMessages to a list of String containing the message string of the LogMessages that have a severity of 50 or greater." $ do
+           let log = [ "I 6 Completed armadillo processing"
+                     , "I 1 Nothing to report"
+                     , "E 99 10 Flange failed!"
+                     , "I 4 Everything normal"
+                     , "I 11 Initiating self-destruct sequence"
+                     , "E 70 3 Way too many pickles"
+                     , "E 65 8 Bad pickle-flange interaction detected"
+                     , "W 5 Flange is due for a check-up"
+                     , "I 7 Out for lunch, back in two time steps"
+                     , "E 20 2 Too many pickles"
+                     , "I 9 Back from lunch"
+                     ]
+               messages = map parseMessage log
+               expectedResult = [ "Way too many pickles"
+                                , "Bad pickle-flange interaction detected"
+                                , "Flange failed!"
+                                ]
+             in whatWentWrong messages `shouldBe` expectedResult

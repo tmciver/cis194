@@ -4,6 +4,7 @@ module Homework2.LogAnalysis
        , insert
        , build
        , inOrder
+       , whatWentWrong
        ) where
 
 import Homework2.Log
@@ -32,3 +33,12 @@ build = foldl (\t m -> insert m t) Leaf
 inOrder :: MessageTree -> [LogMessage]
 inOrder Leaf = []
 inOrder (Node leftTree lm rightTree) = (inOrder leftTree) ++ [lm] ++ (inOrder rightTree)
+
+whatWentWrong :: [LogMessage] -> [String]
+whatWentWrong logs = let sortedLogs = inOrder $ build logs
+                         greaterThan50 (LogMessage (Error severity) _ _) = severity > 50
+                         greaterThan50 _ = False
+                         filteredLogs = filter greaterThan50 sortedLogs
+                         extractMessage (LogMessage _ _ message) = message
+                         extractMessage _ = ""
+                     in map extractMessage filteredLogs
