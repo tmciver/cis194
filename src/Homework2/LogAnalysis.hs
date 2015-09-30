@@ -16,6 +16,9 @@ parseMessage s = case words s of
   ("W":timestamp:message) -> LogMessage Warning (read timestamp) (unwords message)
   _ -> Unknown s
 
+parse :: String -> [LogMessage]
+parse = (map parseMessage) . lines
+
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) t = t -- don't insert Unknown log messages
 insert lm@(LogMessage _ ts _) t = case t of
@@ -36,9 +39,9 @@ inOrder (Node leftTree lm rightTree) = (inOrder leftTree) ++ [lm] ++ (inOrder ri
 
 whatWentWrong :: [LogMessage] -> [String]
 whatWentWrong logs = let sortedLogs = inOrder $ build logs
-                         greaterThan50 (LogMessage (Error severity) _ _) = severity > 50
-                         greaterThan50 _ = False
-                         filteredLogs = filter greaterThan50 sortedLogs
+                         atLeast50 (LogMessage (Error severity) _ _) = severity > 50
+                         atLeast50 _ = False
+                         filteredLogs = filter atLeast50 sortedLogs
                          extractMessage (LogMessage _ _ message) = message
                          extractMessage _ = ""
                      in map extractMessage filteredLogs
