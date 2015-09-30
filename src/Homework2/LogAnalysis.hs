@@ -3,6 +3,7 @@ module Homework2.LogAnalysis
        ( parseMessage
        , insert
        , build
+       , inOrder
        ) where
 
 import Homework2.Log
@@ -27,3 +28,7 @@ insert lm@(LogMessage _ ts _) t = case t of
 
 build :: [LogMessage] -> MessageTree
 build = foldl (\t m -> insert m t) Leaf
+
+inOrder :: MessageTree -> [LogMessage]
+inOrder Leaf = []
+inOrder (Node leftTree lm rightTree) = (inOrder leftTree) ++ [lm] ++ (inOrder rightTree)

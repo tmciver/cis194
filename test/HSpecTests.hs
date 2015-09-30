@@ -84,3 +84,18 @@ main = hspec $ do
               ml = [lm1, Unknown "Bad message", lm2]
               expectedTree = Node Leaf lm1 (Node Leaf lm2 Leaf)
             in build ml `shouldBe` expectedTree
+    describe "Exercise 4" $ do
+      describe "Test 'inOrder'" $ do
+        it "Should create a list of LogMessage from a MessageTree" $ do
+          let lm1 = LogMessage Info 3 "Test"
+              lm2 = LogMessage Warning 5 "Test"
+              lm3 = LogMessage (Error 5) 2 "Test"
+              lm4 = LogMessage Warning 4 "Test"
+              tree = Node (Node Leaf lm3 Leaf)
+                     lm1
+                     (Node (Node Leaf lm4 Leaf)
+                      lm2
+                      Leaf)
+              expectedList = [lm3, lm1, lm4, lm2]
+            in inOrder tree `shouldBe` expectedList
+              
