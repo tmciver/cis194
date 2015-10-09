@@ -23,12 +23,10 @@ insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) t = t -- don't insert Unknown log messages
 insert lm@(LogMessage _ ts _) t = case t of
   Leaf -> Node Leaf lm Leaf
-  Node leftTree alm@(LogMessage _ ats _) rightTree -> if ts < ats then
+  Node leftTree alm@(LogMessage _ ats _) rightTree -> if ts <= ats then
                                                         Node (insert lm leftTree) alm rightTree
-                                                      else if ts > ats then
-                                                             Node leftTree alm (insert lm rightTree)
-                                                           else
-                                                             t
+                                                      else
+                                                        Node leftTree alm (insert lm rightTree)
 
 build :: [LogMessage] -> MessageTree
 build = foldl (\t m -> insert m t) Leaf
