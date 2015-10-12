@@ -4,6 +4,7 @@ import Test.Hspec
 import Homework1
 import Homework2.Log
 import Homework2.LogAnalysis
+import Homework3.Golf
  
 main :: IO ()
 main = hspec $ do
@@ -119,3 +120,9 @@ main = hspec $ do
                                 , "Flange failed!"
                                 ]
              in whatWentWrong messages `shouldBe` expectedResult
+
+-- Homework 3 Tests
+  describe "Homework 3 Tests" $ do
+    describe "Test `skips` function" $ do
+      it "Should return `[\"ABCD\", \"BD\", \"C\", \"D\"]` when called with \"ABCD\"" $ do
+        skips ("ABCD" :: String) `shouldBe` ["ABCD", "BD", "C", "D"]
