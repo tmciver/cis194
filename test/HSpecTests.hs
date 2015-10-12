@@ -126,3 +126,5 @@ main = hspec $ do
     describe "Test `skips` function" $ do
       it "Should return `[\"ABCD\", \"BD\", \"C\", \"D\"]` when called with \"ABCD\"" $ do
         skips ("ABCD" :: String) `shouldBe` ["ABCD", "BD", "C", "D"]
+      it "Should return `[\"hello!\", \"el!\", \"l!\", \"l\", \"o\", \"!\"]` when called with \"hello!\"" $ do
+        skips ("hello!" :: String) `shouldBe` ["hello!", "el!", "l!", "l", "o", "!"]
