@@ -3,8 +3,8 @@ module Homework3.Golf
        ) where
 
 skips :: [a] -> [[a]]
-skips l = [every n l | n <- [1..(length l)]]
-  where every _ [] = []
-        every n l = case drop (n-1) l of
+skips l = [e n l | n <- [1..length l]]
+  where e _ [] = []
+        e n l = case drop (n-1) l of
           [] -> []
-          (x:xs) -> x : every n xs
+          (x:xs) -> x : e n xs
