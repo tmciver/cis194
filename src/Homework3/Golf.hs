@@ -10,8 +10,7 @@ skips l = [e n l | n <- [1..length l]]
           (x:xs) -> x : e n xs
 
 localMaxima :: [Integer] -> [Integer]
-localMaxima = (map (\(_:x:_) -> x)) . (filter hasLocalMaxima) . groupByThree
-  where groupByThree [] = []
-        groupByThree xs | length xs < 3 = []
-        groupByThree xs@(_:xss) = take 3 xs : groupByThree xss
-        hasLocalMaxima (a:b:c:_) = b > a && b > c
+localMaxima = map (head . tail) . filter h . g
+  where g xs | length xs < 3 = []
+        g xs@(_:xss) = take 3 xs : g xss
+        h (a:b:c:_) = b > a && b > c
