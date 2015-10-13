@@ -128,3 +128,11 @@ main = hspec $ do
         skips ("ABCD" :: String) `shouldBe` ["ABCD", "BD", "C", "D"]
       it "Should return `[\"hello!\", \"el!\", \"l!\", \"l\", \"o\", \"!\"]` when called with \"hello!\"" $ do
         skips ("hello!" :: String) `shouldBe` ["hello!", "el!", "l!", "l", "o", "!"]
+
+    describe "Test `localMaxima` function" $ do
+      it "Should return [9, 6] when called with [2,9,5,6,1]" $ do
+        localMaxima [2,9,5,6,1] `shouldBe` [9, 6]
+      it "Should return [4] when called with [2,3,4,1,5]" $ do
+        localMaxima [2,3,4,1,5] `shouldBe` [4]
+      it "Should return [] when called with [1,2,3,4,5]" $ do
+        localMaxima [1,2,3,4,5] `shouldBe` []
